@@ -4,7 +4,6 @@ import poetryPotteryImg from "./assets/poetry-pottery.jpg";
 import previousWorkImg from "./assets/previous-work.jpg";
 import aboutImg from "./assets/about.jpg";
 import volunteersImg from "./assets/volunteers.jpg";
-import founderImg from "./assets/founder.jpg";
 
 export const ABOUT_IMAGE = aboutImg;
 export const VOLUNTEERS_IMAGE = volunteersImg;
@@ -52,13 +51,12 @@ export const EMAILJS = {
   serviceId: "YOUR_EMAILJS_SERVICE_ID",
   donorReceiptTemplateId: "YOUR_DONOR_RECEIPT_TEMPLATE_ID",
   foundationNotifyTemplateId: "YOUR_FOUNDATION_NOTIFY_TEMPLATE_ID",
+  volunteerNotifyTemplateId: "YOUR_VOLUNTEER_NOTIFY_TEMPLATE_ID",
+  volunteerConfirmTemplateId: "YOUR_VOLUNTEER_CONFIRM_TEMPLATE_ID",
 };
 
 export const isEmailConfigured = (): boolean =>
   !Object.values(EMAILJS).some((v) => v.startsWith("YOUR_"));
-
-export const VOLUNTEER_FORM_URL = "YOUR_GOOGLE_FORM_EMBED_URL";
-export const isVolunteerFormConfigured = (): boolean => VOLUNTEER_FORM_URL.startsWith("http");
 
 export const LEADERBOARD_CSV_URL = "YOUR_PUBLISHED_SHEET_CSV_URL";
 export const isLeaderboardConfigured = (): boolean => LEADERBOARD_CSV_URL.startsWith("http");
@@ -67,7 +65,7 @@ export const LEADERBOARD_TOP_N = 10;
 
 export const POINTS_GUIDE: { action: string; points: string }[] = [
   { action: "Attend a ground initiative", points: "+100" },
-  { action: "Upload verified proof of work", points: "+150" },
+  { action: "Share verified proof of work", points: "+150" },
   { action: "Bring a new volunteer", points: "+200" },
   { action: "Lead / organise an event", points: "+500" },
 ];
@@ -90,6 +88,13 @@ export const IMPACT_STATS = {
   volunteers: "12+",
   points: "12.5k+",
 };
+
+export const IMPACT_HIGHLIGHTS = [
+  { value: "1,200+", label: "Meals served" },
+  { value: "12+", label: "Active volunteers" },
+  { value: "4", label: "Initiatives run" },
+  { value: "100%", label: "Goes to the cause" },
+];
 
 export interface Initiative {
   id: string;
@@ -138,5 +143,4 @@ export const FOUNDER = {
   name: "Kuber Seth",
   role: "Founder",
   quote: "We don't just provide aid; we rebuild agency in the shadow of the mountains.",
-  portrait: founderImg,
 };

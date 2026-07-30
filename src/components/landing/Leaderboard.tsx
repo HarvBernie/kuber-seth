@@ -81,14 +81,14 @@ export function Leaderboard() {
                 <img src={logo} alt="Logo" className="w-full h-full object-contain p-1" />
               </div>
             </div>
-            <h2 className="text-xl md:text-3xl font-bold uppercase tracking-widest mb-4">Honor Roll</h2>
+            <h2 className="display text-3xl md:text-5xl font-extrabold uppercase leading-[0.9] mb-4">Honor Roll</h2>
             <p className="font-sans text-sm text-foreground/80 font-medium max-w-sm leading-relaxed">
-              Real change happens on the ground. Upload proof of your community work, earn points, and climb
-              the ranks. Every contribution is recognised.
+              Real change happens on the ground. Share proof of your work with our team by email, earn points,
+              and climb the ranks. Every contribution is recognised.
             </p>
 
             <div className="mt-8 rounded-lg border border-border bg-muted/30 p-5">
-              <h3 className="text-[10px] font-bold uppercase tracking-widest text-primary mb-3">How to earn points</h3>
+              <h3 className="font-mono text-[10px] uppercase tracking-widest text-accent mb-3">How to earn points</h3>
               <ul className="flex flex-col gap-2">
                 {POINTS_GUIDE.map((g) => (
                   <li key={g.action} className="flex items-center justify-between gap-3 text-xs">
@@ -102,11 +102,11 @@ export function Leaderboard() {
 
           <div className="flex border-t border-border pt-6">
             <div className="flex-1 pr-4 border-r border-border">
-              <h4 className="font-bold font-serif text-3xl text-foreground">{IMPACT_STATS.volunteers}</h4>
+              <h4 className="display font-extrabold text-3xl text-foreground">{IMPACT_STATS.volunteers}</h4>
               <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-1">Volunteers</p>
             </div>
             <div className="flex-1 pl-4">
-              <h4 className="font-bold font-serif text-3xl text-primary">{IMPACT_STATS.points}</h4>
+              <h4 className="display font-extrabold text-3xl text-primary">{IMPACT_STATS.points}</h4>
               <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-1">Points</p>
             </div>
           </div>
@@ -114,61 +114,77 @@ export function Leaderboard() {
 
         <div className="md:col-span-8 flex flex-col px-5 py-12 sm:px-8 md:p-12 bg-muted/5">
           <div className="flex items-end justify-between border-b border-border pb-4 mb-6">
-            <h3 className="font-bold uppercase tracking-[0.2em] text-sm text-foreground/80">Top Contributors</h3>
+            <h3 className="font-mono uppercase tracking-[0.2em] text-sm text-foreground/80">Top Contributors</h3>
             <span className="text-[10px] font-mono font-bold uppercase text-muted-foreground">
               {isLeaderboardConfigured() ? "Live" : "Sample"}
             </span>
           </div>
 
-          <div className="flex flex-col">
-            {top.map((v, i) => (
-              <div
-                key={`${v.name}-${i}`}
-                className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 border-b border-border hover:bg-background/50 rounded-lg transition-colors group"
-              >
-                <span className="font-mono text-xs font-bold text-muted-foreground w-6 text-right shrink-0">
-                  {String(i + 1).padStart(2, "0")}.
-                </span>
+          <div className="flex flex-col gap-2">
+            {top.map((v, i) => {
+              const medals = [
+                "bg-amber-400 text-amber-950 border-amber-500",
+                "bg-slate-200 text-slate-700 border-slate-300",
+                "bg-orange-300 text-orange-950 border-orange-400",
+              ];
+              const isTop = i === 0;
+              return (
+                <div
+                  key={`${v.name}-${i}`}
+                  className={`flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl transition-all group ${
+                    isTop ? "bg-primary/5 ring-1 ring-primary/20 shadow-sm" : "hover:bg-muted/50"
+                  }`}
+                >
+                  <div
+                    className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-mono text-sm font-bold shrink-0 border ${
+                      medals[i] ?? "bg-muted text-muted-foreground border-border"
+                    }`}
+                  >
+                    {i + 1}
+                  </div>
 
-                <div className="flex-1 min-w-0">
-                  <span className="font-serif italic text-lg sm:text-2xl font-bold text-foreground group-hover:text-primary transition-colors truncate block">
-                    {v.name}
+                  <div className="flex-1 min-w-0">
+                    <span className="font-serif italic text-lg sm:text-2xl font-bold text-foreground group-hover:text-primary transition-colors truncate block">
+                      {v.name}
+                    </span>
+                    {v.badges.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 mt-1">
+                        {v.badges.map((b, idx) => (
+                          <span
+                            key={b}
+                            className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded-full ${
+                              idx === 0 ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"
+                            }`}
+                          >
+                            {b}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <span className="font-mono text-xs sm:text-sm font-bold px-2.5 py-1 rounded-full bg-primary/10 text-primary shrink-0">
+                    {v.points.toLocaleString()} pts
                   </span>
-                  {v.badges.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 mt-1">
-                      {v.badges.map((b, idx) => (
-                        <span
-                          key={b}
-                          className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded-full ${
-                            idx === 0 ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"
-                          }`}
-                        >
-                          {b}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
 
-                <span className="font-mono text-sm sm:text-base font-semibold tracking-tighter text-right shrink-0">
-                  {v.points.toLocaleString()} pts
-                </span>
-
-                <div className="w-11 h-11 sm:w-14 sm:h-14 shrink-0 overflow-hidden rounded-md bg-primary/10 flex items-center justify-center">
-                  {v.proof ? (
-                    <img
-                      src={v.proof}
-                      alt={`Proof by ${v.name}`}
-                      loading="lazy"
-                      className="w-full h-full object-cover"
-                      onError={(e) => ((e.currentTarget.style.display = "none"))}
-                    />
-                  ) : (
-                    <span className="font-serif italic text-lg text-primary/70">{v.name.charAt(0)}</span>
-                  )}
+                  <div className="w-11 h-11 sm:w-14 sm:h-14 shrink-0 overflow-hidden rounded-lg ring-1 ring-border bg-primary/10 flex items-center justify-center">
+                    {v.proof ? (
+                      <img
+                        src={v.proof}
+                        alt={`Proof by ${v.name}`}
+                        loading="lazy"
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                        }}
+                      />
+                    ) : (
+                      <span className="font-serif italic text-lg text-primary/70">{v.name.charAt(0)}</span>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

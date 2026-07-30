@@ -4,8 +4,8 @@ The official website for the **Kuber Seth Foundation** — a citizen-volunteer N
 
 A fast, fully static, zero-cost React site with:
 
-- **UPI donations** — a unique QR code per initiative, plus a receipt request form that emails the donor and notifies the foundation.
-- **Volunteer sign-up** — an embedded registration form with proof-of-work upload.
+- **UPI donations** — a "Support Us" QR code plus a receipt request form that emails the donor and notifies the foundation.
+- **Volunteer sign-up** — a custom registration form that emails the foundation and sends the volunteer a confirmation.
 - **Points leaderboard** — a live volunteer ranking read from a published Google Sheet.
 
 ## Tech stack
@@ -36,9 +36,8 @@ Every editable setting lives in **`src/config.ts`** — foundation details, UPI 
 
 | Value in `src/config.ts` | How to get it |
 | --- | --- |
-| `EMAILJS` | Create a free [EmailJS](https://www.emailjs.com/) account, add an email service and two templates (donor receipt + foundation notification), then copy the public key, service ID and template IDs. |
-| `VOLUNTEER_FORM_URL` | Build a Google Form with a file-upload question and paste its embed URL (Send → Embed HTML). |
-| `LEADERBOARD_CSV_URL` | In the form's responses sheet, make a summary tab with columns `name, points, badges, proof`, then File → Share → Publish to web → CSV and copy the URL. |
+| `EMAILJS` | Create a free [EmailJS](https://www.emailjs.com/) account, add an email service and four templates (donor receipt, foundation donation notice, volunteer notification, volunteer confirmation), then copy the public key, service ID and template IDs. Powers both the donation receipt and the volunteer form. |
+| `LEADERBOARD_CSV_URL` | Create a Google Sheet with columns `name, points, badges, proof`, then File → Share → Publish to web → CSV and copy the URL. The leaderboard updates from it live. |
 
 ## Deployment
 
